@@ -85,6 +85,68 @@ python logicomacheck.py path/to/your/tcl/script.tcl --config your_config.json
 - Insecure File Handling
 - Sensitive Data Exposure
 
+## Support Scripts
+
+LogicomaCheck comes with two support scripts that aid in vulnerability testing and generation of test cases:
+
+### 1. tcl_vuln_script_creation.sh
+
+This Bash script generates Tcl scripts with known vulnerabilities for testing purposes.
+
+Features:
+- Creates 5 different Tcl scripts demonstrating various security flaws
+- Supports Docker containerization
+- Generates mock data (passwd file and SQLite database)
+- Includes cleanup functionality
+
+Usage:
+```
+./tcl_vuln_script_creation.sh [options]
+```
+Options:
+- `-h`: Show help message
+- `-d`: Delete all generated TCL scripts and dependencies
+- `-c`: Use Docker containerization (if Docker is installed)
+
+### 2. tcl_vuln_test.py
+
+This Python script performs basic vulnerability tests on Tcl code.
+
+Features:
+- Tests for memory management issues
+- Checks input handling for potential buffer overflows
+- Examines command execution vulnerabilities
+- Tests file operation security
+- Analyzes error handling for information leakage
+
+Usage:
+```
+python tcl_vuln_test.py
+```
+
+Note: These support scripts are intended for testing and development purposes. They generate intentionally vulnerable code and should be used in controlled environments only.
+
+## Using Support Scripts with LogicomaCheck
+
+1. Generate vulnerable Tcl scripts:
+   ```
+   ./tcl_vuln_script_creation.sh
+   ```
+
+2. Run LogicomaCheck on the generated scripts:
+   ```
+   python logicomacheck.py script1_hardcoded_credentials.tcl
+   python logicomacheck.py script2_command_injection_sql_injection.tcl
+   # ... and so on for each generated script
+   ```
+
+3. Use tcl_vuln_test.py to perform additional tests:
+   ```
+   python tcl_vuln_test.py
+   ```
+
+These support scripts enhance LogicomaCheck's testing capabilities and provide a way to generate known vulnerable code for scanner validation.
+
 ## Contributing
 
 As LogicomaCheck is an early prototype, contributions, suggestions, and feedback are welcome. Please feel free to open issues or submit pull requests on the [GitHub repository](https://github.com/dmaynor/LogicomaCheck).
